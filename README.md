@@ -1,0 +1,2 @@
+# granular-lab
+Particles sandbox
