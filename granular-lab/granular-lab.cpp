@@ -11,64 +11,76 @@ const int SCALING{ 2 };
 
 bool MATRIX[640][360] = {};
 
+class World {
+private:
+	Particle* matrix[640][360] = {};
+
+public:
+	World() {};
+
+	bool addParticle(int x, int y, Particle* particle) {
+		/*Try to put a particle on the grid. Returns true if successful else false*/
+		if (matrix[x][y] == nullptr) {
+			matrix[x][y] = particle;
+			return true;
+		}
+		
+		return false;
+	}
+
+	bool canMoveHorizontally(int x, int y, int direction) {
+		/* Check if its possible to move one pixel in a given direction.
+		   1 means going right. -1 means going left.*/
+		if (direction == 1)
+			return matrix[x + direction][y] == nullptr && x < SCREEN_WIDTH;
+		else if (direction == -1)
+			return matrix[x + direction][y] == nullptr && x > 0;
+
+		return false;
+	}
+
+	bool applyVerticalForce(int x, int y) {
+		/*Apply gravity. Returns true if moved.*/
+		if (matrix[x][y + 1] == nullptr && y < SCREEN_HEIGHT - 1) {
+			matrix[x][y + 1] = matrix[x][y];
+			matrix[x][y] = nullptr;
+			(*matrix[x][y]).setSideMoves(0);
+			return true;
+		}
+
+		return false;
+	}
+
+	bool spread(int x, int y) {
+		/*Make a particle spread to one side or another. Returns true if moved.*/
+		const int movingDirection{ std::rand() % 2 == 0 ? -1 : 1 };
+		(*matrix[x][y]).setSideMoves(0);
+
+		if (canMoveHorizontally(x, y, movingDirection) && (*matrix[x][y]).getSideMoves() < (*matrix[x][y]).getMaxSideMoves()) {
+			matrix[x + movingDirection][y] = matrix[x][y];
+			matrix[x][y] = nullptr;
+
+			return true;
+		}
+
+		return false;
+	}
+};
+
 class Particle {
 private:
-	SDL_Rect position{};
 	SDL_Color color{};
 	int maxSideMoves{};
 	int sideMoves{};
 	int density{}; // To do: Particle of different density swap vertical positions accordingly.
 
-	bool canMoveHorizontally(int direction) {
-		/* Check if its possible to move one pixel in a given direction.
-		   1 means going right. -1 means going left.*/
-		if (direction == 1)
-			return MATRIX[position.x + direction][position.y] == false && position.x < SCREEN_WIDTH;
-		else if (direction == -1)
-			return MATRIX[position.x + direction][position.y] == false && position.x > 0;
-
-		return false;
-	}
-
-	bool applyVerticalForce() {
-		/*Apply gravity. Returns true if moved.*/
-		if (MATRIX[position.x][position.y + 1] == false && position.y < SCREEN_HEIGHT - 1) {
-			MATRIX[position.x][position.y] = false;
-			++position.y;
-			MATRIX[position.x][position.y] = true;
-			sideMoves = 0;
-			return true;
-		}
-
-		return false;
-	}
-
-	bool spread() {
-		/*Choose a random side and move in that direction. Returns true if moved.*/
-		const int movingDirection{ std::rand() % 2 == 0 ? -1 : 1 };
-		sideMoves++;
-
-		if (canMoveHorizontally(movingDirection) && sideMoves < maxSideMoves) {
-			MATRIX[position.x][position.y] = false;
-			position.x += movingDirection;
-			MATRIX[position.x][position.y] = true;
-
-			return true;
-		}
-
-		return false;
-	}
 public:
 	enum Type {
 		SAND,
 		WATER,
 	};
 
-	Particle(int x, int y, Type type) {
-		position.x = x;
-		position.y = y;
-		position.w = 1;
-		position.h = 1;
+	Particle(Type type) {
 
 		switch (type) {
 		case SAND:
@@ -100,6 +112,18 @@ public:
 	void draw(SDL_Renderer* renderer) {
 		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 		SDL_RenderPoint(renderer, position.x, position.y);
+	}
+
+	void setSideMoves(int n) {
+		sideMoves = n;
+	}
+
+	int getSideMoves() {
+		return sideMoves;
+	}
+
+	int getMaxSideMoves() {
+		return maxSideMoves;
 	}
 };
 
