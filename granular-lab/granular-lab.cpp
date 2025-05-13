@@ -118,11 +118,11 @@ public:
 		sideMoves = n;
 	}
 
-	int getSideMoves() {
+	int getSideMoves() const {
 		return sideMoves;
 	}
 
-	int getMaxSideMoves() {
+	int getMaxSideMoves() const {
 		return maxSideMoves;
 	}
 };
