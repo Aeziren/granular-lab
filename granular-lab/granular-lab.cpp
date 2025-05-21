@@ -19,9 +19,10 @@ private:
 	Element type{};
 	int maxSideMoves{};
 public:
-	Particle(int x, int y, Element type) {
-		body.x = x;
-		body.y = y;
+	Particle(int x, int y, Element type)
+		: body{x, y, 1, 1}
+		, type{ type }
+	{
 
 		switch (type) {
 		case SAND:
@@ -60,9 +61,11 @@ public:
 
 class World {
 private:
-	Particle* matrix[10][100]{};
+	using MatrixLine = std::vector<Particle*>;
+	std::vector<MatrixLine> matrix{};
 public:
-	World() {};
+	World() : matrix(SCREEN_WIDTH, MatrixLine(SCREEN_HEIGHT, nullptr)) {
+	};
 
 	bool addParticle(Particle* particle) {
 		/*Try to add a particle. Returns true if position was unoccupied.*/
@@ -115,9 +118,8 @@ int main(int argc, char* argv[]) {
 	while (quit == false) {
 		if (leftMouseButtonDown || rightMouseButtonDown) {
 			SDL_GetMouseState(&mouseX, &mouseY);
-			// Todo: Overflow here?
 			Particle* newParticle = new Particle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING), Particle::SAND);
-			//world.addParticle(newParticle);
+			world.addParticle(newParticle);
 		}
 
 		while (SDL_PollEvent(&event)) {
@@ -153,7 +155,7 @@ int main(int argc, char* argv[]) {
 		SDL_RenderClear(renderer);
 
 		// Render & update particles
-		//world.draw(renderer);
+		world.draw(renderer);
 
 		SDL_RenderPresent(renderer);
 
