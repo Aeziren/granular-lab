@@ -83,13 +83,15 @@ public:
 	void update() {};
 
 	void draw(SDL_Renderer* renderer) {
-		for (int h{}; h < SCREEN_HEIGHT; ++h) {
+		for (int y{}; y < SCREEN_HEIGHT; ++y) {
 			for (int x{}; x < SCREEN_WIDTH; ++x) {
-				Particle* currentParticle{ matrix[x][h] };
+				Particle* currentParticle{ matrix[x][y] };
 
-				if (currentParticle != nullptr) {
-					(*currentParticle).draw(renderer);
-				}
+				if (currentParticle == nullptr)
+					continue;
+					
+				(*currentParticle).draw(renderer);
+				
 			}
 		}
 	}
