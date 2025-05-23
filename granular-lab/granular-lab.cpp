@@ -56,6 +56,10 @@ public:
 	std::pair<int, int> getPosition() {
 		return { body.x, body.y };
 	}
+
+	Element getType() {
+		return type;
+	}
 };
 
 
@@ -80,7 +84,21 @@ public:
 		return false;
 	}
 
-	void update() {};
+	void update() {
+		for (int y{}; y < SCREEN_HEIGHT; ++y) {
+			for (int x{}; x < SCREEN_WIDTH; ++x) {
+				Particle* currentParticle{ matrix[x][y] };
+
+				if (currentParticle == nullptr)
+					continue;
+
+				switch ((*currentParticle).getType()) {
+				case Particle::SAND:
+					break;
+				}
+			}
+		}
+	};
 
 	void draw(SDL_Renderer* renderer) {
 		for (int y{}; y < SCREEN_HEIGHT; ++y) {
