@@ -37,7 +37,7 @@ public:
 			color.g = 0x90;
 			color.b = 0xF0;
 			color.a = 0xFF;
-			// To do: Solve this. A idea might be a particle of water move to the side when there is another particle of water above it. But that would need to improve the world.
+			// To do: Solve this. A idea might be a particle of water move to the side when there is another particle of water above it. But that would need to improve the world. Another idea could be a particle of water also move horizontally if possible.
 			maxSideMoves = 99999;
 			break;
 		}
@@ -56,6 +56,15 @@ public:
 	std::pair<int, int> getPosition() {
 		return { body.x, body.y };
 	}
+
+	void setPosition(int x, int y) {
+		body.x = x;
+		body.y = y;
+	}
+
+	Element getElement() {
+		return type;
+	}
 };
 
 
@@ -63,6 +72,20 @@ class World {
 private:
 	using MatrixLine = std::vector<Particle*>;
 	std::vector<MatrixLine> matrix{};
+
+	bool applyVerticalForce(Particle* particle) {
+		switch ((*particle).getElement()) {
+		case Particle::SAND || Particle::WATER:
+			auto currentPosition{ (*particle).getPosition() };
+
+			if (matrix[currentPosition.first][currentPosition.second - 1] == nullptr) {
+				matrix[currentPosition.first][currentPosition.second - 1] = particle;
+				(*particle).setPosition(currentPosition.first, currentPosition.second - 1);
+				return true;
+			}
+		}
+
+	}
 public:
 	World() : matrix(SCREEN_WIDTH, MatrixLine(SCREEN_HEIGHT, nullptr)) {
 	};
@@ -80,7 +103,20 @@ public:
 		return false;
 	}
 
-	void update() {};
+	void update() {
+		for (int h{}; h < SCREEN_HEIGHT; ++h) {
+			for (int x{}; h < SCREEN_WIDTH; ++x) {
+				Particle* currentParticle{ matrix[x][h] };
+
+				if (currentParticle != nullptr) {
+					if (!applyVerticalForce(currentParticle)) {
+
+					}
+				}
+
+			}
+		}
+	};
 
 	void draw(SDL_Renderer* renderer) {
 		for (int h{}; h < SCREEN_HEIGHT; ++h) {
