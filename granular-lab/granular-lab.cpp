@@ -57,12 +57,16 @@ public:
 		return { body.x, body.y };
 	}
 
+<<<<<<< HEAD
 	void setPosition(int x, int y) {
 		body.x = x;
 		body.y = y;
 	}
 
 	Element getElement() {
+=======
+	Element getType() {
+>>>>>>> 7f6e51370066733252f18b4d3e69c7b543a44418
 		return type;
 	}
 };
@@ -119,13 +123,15 @@ public:
 	};
 
 	void draw(SDL_Renderer* renderer) {
-		for (int h{}; h < SCREEN_HEIGHT; ++h) {
+		for (int y{}; y < SCREEN_HEIGHT; ++y) {
 			for (int x{}; x < SCREEN_WIDTH; ++x) {
-				Particle* currentParticle{ matrix[x][h] };
+				Particle* currentParticle{ matrix[x][y] };
 
-				if (currentParticle != nullptr) {
-					(*currentParticle).draw(renderer);
-				}
+				if (currentParticle == nullptr)
+					continue;
+					
+				(*currentParticle).draw(renderer);
+				
 			}
 		}
 	}
