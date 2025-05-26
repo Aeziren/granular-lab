@@ -57,16 +57,12 @@ public:
 		return { body.x, body.y };
 	}
 
-<<<<<<< HEAD
 	void setPosition(int x, int y) {
 		body.x = x;
 		body.y = y;
 	}
 
 	Element getElement() {
-=======
-	Element getType() {
->>>>>>> 7f6e51370066733252f18b4d3e69c7b543a44418
 		return type;
 	}
 };
