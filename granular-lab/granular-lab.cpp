@@ -75,12 +75,12 @@ private:
 
 	bool applyVerticalForce(Particle* particle) {
 		switch ((*particle).getElement()) {
-		case Particle::SAND || Particle::WATER:
+		case Particle::SAND:
 			auto currentPosition{ (*particle).getPosition() };
 
-			if (matrix[currentPosition.first][currentPosition.second - 1] == nullptr) {
-				matrix[currentPosition.first][currentPosition.second - 1] = particle;
-				(*particle).setPosition(currentPosition.first, currentPosition.second - 1);
+			if (matrix[currentPosition.first][currentPosition.second + 1] == nullptr) {
+				matrix[currentPosition.first][currentPosition.second + 1] = particle;
+				(*particle).setPosition(currentPosition.first, currentPosition.second + 1);
 				return true;
 			}
 		}
@@ -105,7 +105,7 @@ public:
 
 	void update() {
 		for (int y{}; y < SCREEN_HEIGHT; ++y) {
-			for (int x{}; y < SCREEN_WIDTH; ++x) {
+			for (int x{}; x < SCREEN_WIDTH; ++x) {
 				Particle* currentParticle{ matrix[x][y] };
 
 				if (currentParticle != nullptr) {
@@ -123,11 +123,9 @@ public:
 			for (int x{}; x < SCREEN_WIDTH; ++x) {
 				Particle* currentParticle{ matrix[x][y] };
 
-				if (currentParticle == nullptr)
-					continue;
-					
-				(*currentParticle).draw(renderer);
-				
+				if (currentParticle != nullptr) {
+					(*currentParticle).draw(renderer);
+				}	
 			}
 		}
 	}
@@ -193,12 +191,13 @@ int main(int argc, char* argv[]) {
 		SDL_RenderClear(renderer);
 
 		// Render & update particles
+		world.update();
 		world.draw(renderer);
 
 		SDL_RenderPresent(renderer);
 
 		// Delay
-		SDL_Delay(16);
+		SDL_Delay(64);
 	}
 
 	// Close
