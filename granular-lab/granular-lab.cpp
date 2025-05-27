@@ -18,6 +18,7 @@ private:
 	SDL_Color color{};
 	Element type{};
 	int maxSideMoves{};
+	float density{}; // kg/m3 - for reference, air density = 1,2 | water = 1000 | sand = 1600 | steam = 0,6
 public:
 	Particle(int x, int y, Element type)
 		: body{x, y, 1, 1}
@@ -31,6 +32,7 @@ public:
 			color.b = 0x70;
 			color.a = 0xFF;
 			maxSideMoves = 8;
+			density = 1600;
 			break;
 		case WATER:
 			color.r = 0x10;
@@ -39,6 +41,7 @@ public:
 			color.a = 0xFF;
 			// To do: Solve this. A idea might be a particle of water move to the side when there is another particle of water above it. But that would need to improve the world. Another idea could be a particle of water also move horizontally if possible.
 			maxSideMoves = 99999;
+			density = 1000;
 			break;
 		}
 	}
@@ -65,6 +68,10 @@ public:
 	Element getElement() {
 		return type;
 	}
+
+	float getDensity() {
+		return density;
+	}
 };
 
 
@@ -72,20 +79,45 @@ class World {
 private:
 	using MatrixLine = std::vector<Particle*>;
 	std::vector<MatrixLine> matrix{};
+	enum MovingDirections {
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT
+	};
 
 	bool applyVerticalForce(Particle* particle) {
-		switch ((*particle).getElement()) {
-		case Particle::SAND:
-			auto currentPosition{ (*particle).getPosition() };
+		auto currentPosition{ (*particle).getPosition() };
+		const int x{ currentPosition.first };
+		const int y{ currentPosition.second };
+		constexpr double airDensity{ 1.2 };
+		const double particleDensity{ (*particle).getDensity() };
 
-			if (matrix[currentPosition.first][currentPosition.second + 1] == nullptr) {
-				matrix[currentPosition.first][currentPosition.second + 1] = particle;
-				(*particle).setPosition(currentPosition.first, currentPosition.second + 1);
+		if (particleDensity > airDensity) {
+			// Fall on air
+			if (canMove(particle, DOWN)) {
+				matrix[x][y + 1] = particle;
+				matrix[x][y] = nullptr;
+				(*particle).setPosition(x, y + 1);
 				return true;
 			}
 		}
-
 	}
+	
+	bool canMove(Particle* particle, MovingDirections direction) {
+		/*Get a particle and a direction and check if there is no neighbor in that direction and its inbounds.*/
+		auto currentPosition{ (*particle).getPosition() };
+		const int x{ currentPosition.first };
+		const int y{ currentPosition.second };
+
+		switch (direction) {
+		case DOWN:
+			return y + 1 < SCREEN_HEIGHT && matrix[x][y + 1] == nullptr;
+		case UP:
+			return y - 1 >= 0 && matrix[x][y - 1] == nullptr;
+		}
+	}
+
 public:
 	World() : matrix(SCREEN_WIDTH, MatrixLine(SCREEN_HEIGHT, nullptr)) {
 	};
