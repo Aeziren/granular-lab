@@ -104,9 +104,9 @@ public:
 	}
 
 	void update() {
-		for (int h{}; h < SCREEN_HEIGHT; ++h) {
-			for (int x{}; h < SCREEN_WIDTH; ++x) {
-				Particle* currentParticle{ matrix[x][h] };
+		for (int y{}; y < SCREEN_HEIGHT; ++y) {
+			for (int x{}; y < SCREEN_WIDTH; ++x) {
+				Particle* currentParticle{ matrix[x][y] };
 
 				if (currentParticle != nullptr) {
 					if (!applyVerticalForce(currentParticle)) {
