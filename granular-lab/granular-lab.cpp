@@ -102,6 +102,8 @@ private:
 				return true;
 			}
 		}
+
+		return false;
 	}
 	
 	bool canMove(Particle* particle, MovingDirections direction) {
