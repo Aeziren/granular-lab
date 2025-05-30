@@ -118,6 +118,19 @@ private:
 		}
 	}
 
+	void searchActiveParticles(std::vector<Particle*>& bufferActiveParticles) {
+		for (int y{}; y < SCREEN_HEIGHT; ++y) {
+			for (int x{}; x < SCREEN_WIDTH; ++x) {
+				Particle* currentParticle{ matrix[x][y] };
+
+				if (currentParticle != nullptr) {
+					bufferActiveParticles.push_back(currentParticle);
+				}
+
+			}
+		}
+	}
+
 public:
 	World() : matrix(SCREEN_WIDTH, MatrixLine(SCREEN_HEIGHT, nullptr)) {
 	};
