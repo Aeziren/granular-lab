@@ -149,18 +149,12 @@ public:
 	}
 
 	void update() {
-		for (int y{}; y < SCREEN_HEIGHT; ++y) {
-			for (int x{}; x < SCREEN_WIDTH; ++x) {
-				Particle* currentParticle{ matrix[x][y] };
+		std::vector<Particle*> activeParticles{};
+		searchActiveParticles(activeParticles);
 
-				if (currentParticle != nullptr) {
-					if (!applyVerticalForce(currentParticle)) {
-
-					}
-				}
-
-			}
-		}
+		for (Particle* particle : activeParticles) {
+			applyVerticalForce(particle);
+		}	
 	};
 
 	void draw(SDL_Renderer* renderer) {
@@ -242,7 +236,7 @@ int main(int argc, char* argv[]) {
 		SDL_RenderPresent(renderer);
 
 		// Delay
-		SDL_Delay(64);
+		SDL_Delay(16);
 	}
 
 	// Close
