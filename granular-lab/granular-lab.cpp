@@ -18,6 +18,7 @@ private:
 	SDL_Color color{};
 	Element type{};
 	int maxSideMoves{};
+	int sideMoves{};
 	float density{}; // kg/m3 - for reference, air density = 1,2 | water = 1000 | sand = 1600 | steam = 0,6
 public:
 	Particle(int x, int y, Element type)
@@ -65,12 +66,24 @@ public:
 		body.y = y;
 	}
 
+	void resetSideMoves() {
+		sideMoves = 0;
+	}
+
 	Element getElement() {
 		return type;
 	}
 
 	float getDensity() {
 		return density;
+	}
+
+	void increaseSideMoves() {
+		++sideMoves;
+	}
+
+	bool outOfMoves() {
+		return sideMoves >= maxSideMoves;
 	}
 };
 
@@ -99,8 +112,29 @@ private:
 				matrix[x][y + 1] = particle;
 				matrix[x][y] = nullptr;
 				(*particle).setPosition(x, y + 1);
+				(*particle).resetSideMoves();
 				return true;
 			}
+		}
+
+		return false;
+	}
+
+	bool spread(Particle* particle) {
+		//Choose a random direction to go
+		const MovingDirections movingDirection{ std::rand() % 2 == 0 ? LEFT : RIGHT };
+		(*particle).increaseSideMoves();
+
+		if (canMove(particle, movingDirection) && !(*particle).outOfMoves()) {
+			auto currentPosition{ (*particle).getPosition() };
+			const int x{ currentPosition.first };
+			const int y{ currentPosition.second };
+			const int intDirection{ movingDirection == LEFT ? -1 : 1 };
+			matrix[x + intDirection][y] = particle;
+			matrix[x][y] = nullptr;
+			(*particle).setPosition(x + intDirection, y);
+
+			return true;
 		}
 
 		return false;
@@ -117,6 +151,10 @@ private:
 			return y + 1 < SCREEN_HEIGHT && matrix[x][y + 1] == nullptr;
 		case UP:
 			return y - 1 >= 0 && matrix[x][y - 1] == nullptr;
+		case RIGHT:
+			return x + 1 < SCREEN_WIDTH && matrix[x + 1][y] == nullptr;
+		case LEFT:
+			return x - 1 >= 0 && matrix[x - 1][y] == nullptr;
 		}
 	}
 
@@ -155,7 +193,9 @@ public:
 		searchActiveParticles(activeParticles);
 
 		for (Particle* particle : activeParticles) {
-			applyVerticalForce(particle);
+			if (!applyVerticalForce(particle)) {
+				spread(particle);
+			}
 		}	
 	};
 
