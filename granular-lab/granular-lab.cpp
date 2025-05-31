@@ -235,7 +235,7 @@ int main(int argc, char* argv[]) {
 	while (quit == false) {
 		if (leftMouseButtonDown || rightMouseButtonDown) {
 			SDL_GetMouseState(&mouseX, &mouseY);
-			Particle* newParticle = new Particle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING), Particle::SAND);
+			Particle* newParticle = new Particle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING), leftMouseButtonDown ? Particle::SAND : Particle::WATER);
 			world.addParticle(newParticle);
 		}
 
