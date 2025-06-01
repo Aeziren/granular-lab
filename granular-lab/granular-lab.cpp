@@ -115,6 +115,10 @@ private:
 				(*particle).resetSideMoves();
 				return true;
 			}
+			else if ((*matrix[x][y + 1]).getDensity() < (*particle).getDensity()) { // Todo: Could each particle in world be a reference (&) instead of a pointer?
+				// Below particle less dense gets swaped
+				swapParticles(matrix[x][y + 1], particle)
+			}
 		}
 
 		return false;
