@@ -119,7 +119,7 @@ private:
 				return true;
 			}
 			else if ((*matrix[x][y + 1]).getDensity() < (*particle).getDensity()) { // Todo: Could each particle in world be a reference (&) instead of a pointer?
-				// Below particle that are less dense gets swaped
+				// Below particle that are less dense gets swaped			
 				swapParticles(matrix[x][y + 1], particle);
 			}
 		}
@@ -131,16 +131,14 @@ private:
 		auto positionParticle1{ (*particle1).getPosition() };
 		auto positionParticle2{ (*particle2).getPosition() };
 
-		// Todo: Test later if a buffer is really necessary
-		Particle* buffer{ particle2 };
 		matrix[positionParticle2.first][positionParticle2.second] = particle1;
 		(*particle1).setPosition(positionParticle2.first, positionParticle2.second);
 
-		matrix[positionParticle1.first][positionParticle1.second] = buffer;
-		(*buffer).setPosition(positionParticle1.first, positionParticle2.second);
+		matrix[positionParticle1.first][positionParticle1.second] = particle2;
+		(*particle2).setPosition(positionParticle1.first, positionParticle1.second);
 
 		(*particle1).resetSideMoves();
-		(*buffer).resetSideMoves();
+		(*particle2).resetSideMoves();
 	}
 
 	bool spread(Particle* particle) {
@@ -189,7 +187,6 @@ private:
 				if (currentParticle != nullptr) {
 					bufferActiveParticles.push_back(currentParticle);
 				}
-
 			}
 		}
 	}
@@ -258,6 +255,7 @@ int main(int argc, char* argv[]) {
 	while (quit == false) {
 		if (leftMouseButtonDown || rightMouseButtonDown) {
 			SDL_GetMouseState(&mouseX, &mouseY);
+			// Leaking memory because particle aren't destroyed for now
 			Particle* newParticle = new Particle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING), leftMouseButtonDown ? Particle::SAND : Particle::WATER);
 			world.addParticle(newParticle);
 		}
