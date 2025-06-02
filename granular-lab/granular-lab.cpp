@@ -108,6 +108,9 @@ private:
 
 		if (particleDensity > airDensity) {
 			// Fall on air
+			if (y + 1 >= SCREEN_HEIGHT)
+				return false;
+			// Todo: Intrissically checking twice if matrix[x][y + 1] is nullptr
 			if (canMove(particle, DOWN)) {
 				matrix[x][y + 1] = particle;
 				matrix[x][y] = nullptr;
@@ -116,12 +119,28 @@ private:
 				return true;
 			}
 			else if ((*matrix[x][y + 1]).getDensity() < (*particle).getDensity()) { // Todo: Could each particle in world be a reference (&) instead of a pointer?
-				// Below particle less dense gets swaped
-				swapParticles(matrix[x][y + 1], particle)
+				// Below particle that are less dense gets swaped
+				swapParticles(matrix[x][y + 1], particle);
 			}
 		}
 
 		return false;
+	}
+
+	void swapParticles(Particle* particle1, Particle* particle2) {
+		auto positionParticle1{ (*particle1).getPosition() };
+		auto positionParticle2{ (*particle2).getPosition() };
+
+		// Todo: Test later if a buffer is really necessary
+		Particle* buffer{ particle2 };
+		matrix[positionParticle2.first][positionParticle2.second] = particle1;
+		(*particle1).setPosition(positionParticle2.first, positionParticle2.second);
+
+		matrix[positionParticle1.first][positionParticle1.second] = buffer;
+		(*buffer).setPosition(positionParticle1.first, positionParticle2.second);
+
+		(*particle1).resetSideMoves();
+		(*buffer).resetSideMoves();
 	}
 
 	bool spread(Particle* particle) {
