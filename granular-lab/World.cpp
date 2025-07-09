@@ -1,6 +1,16 @@
 #include "World.h"
 #include "Constants.h"
 
+
+World::World() : matrix(SCREEN_WIDTH, MatrixLine(SCREEN_HEIGHT, nullptr)) {}
+World::~World() {
+	for (const MatrixLine& matrixLine : matrix) {
+		for (Particle* particle : matrixLine) {
+			delete particle;
+		}
+	}
+}
+
 bool World::applyVerticalForce(Particle* particle) {
 	auto currentPosition{ (*particle).getPosition() };
 	const int x{ currentPosition.first };
@@ -92,10 +102,6 @@ void World::searchActiveParticles(std::vector<Particle*>& bufferActiveParticles)
 		}
 	}
 }
-
-
-World::World() : matrix(SCREEN_WIDTH, MatrixLine(SCREEN_HEIGHT, nullptr)) {}
-
 
 bool World::addParticle(Particle* particle) {
 	/*Try to add a particle. Returns true if position was unoccupied.*/
