@@ -1,8 +1,5 @@
-#include <utility>
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <vector>
 #include <SDL3/SDL.h>
 #include "helpers.h"
 #include "World.h"
