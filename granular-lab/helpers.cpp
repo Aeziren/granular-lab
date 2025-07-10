@@ -2,7 +2,6 @@
 #include <iostream>
 
 bool init(SDL_Window** window, SDL_Renderer** renderer, int screenWidth, int screenHeight, int scaling = 1) {
-	/*Initialize main SDL functions. SubSystem set to only video.*/
 	if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
 		std::cout << "Could not initialize SDL! Error: " << SDL_GetError();
 		return false;
@@ -28,7 +27,6 @@ bool init(SDL_Window** window, SDL_Renderer** renderer, int screenWidth, int scr
 }
 
 void close(SDL_Window** window, SDL_Renderer** renderer) {
-	/*Closes the window, renderer and quit SDL.*/
 	SDL_DestroyWindow(*window);
 	SDL_DestroyRenderer(*renderer);
 	SDL_Quit();
