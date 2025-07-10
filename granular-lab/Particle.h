@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <utility>
+#include <string>
 
 /*
 * class Particle
@@ -8,17 +9,11 @@
 */
 class Particle {
 public:
-	enum Element {
-		SAND,
-		WATER
-	};
-
 	/*
 	* @brief Creates a particle.
 	* @param x, y: Particle position.
-	* @parm type: Particle element type.
 	*/
-	Particle(int x, int y, Element type);
+	Particle(int x, int y);
 
 	/*
 	* @brief Draw the current particle.
@@ -45,9 +40,9 @@ public:
 
 	/*
 	* @brief Get the particle type.
-	* @return Element of the current particle.
+	* @return Element type in text format.
 	*/
-	Element getElement();
+	std::string_view getElement();
 
 	/*
 	* @brief Get the particle density.
@@ -66,11 +61,11 @@ public:
 	*/
 	bool outOfMoves();
 
-private:
-	SDL_Rect body{};      /**< Rectangle representing the particle's position and size. */
-	SDL_Color color{};    /**< Color of the particle. */
-	Element type{};       /**< Element type of the particle. */
-	int maxSideMoves{};   /**< Maximum allowed side moves for the particle. */
-	int sideMoves{};      /**< Current number of side moves made. */
-	float density{};      /**< Density of the particle in kg/m3. for reference, air density = 1,2 | water = 1000 | sand = 1600 | steam = 0,6 */
+protected:
+	SDL_Rect body{};			/**< Rectangle representing the particle's position and size. */
+	SDL_Color color{};			/**< Color of the particle. */
+	std::string_view type{};    /**< Element type of the particle. */
+	int maxSideMoves{};			/**< Maximum allowed side moves for the particle. */
+	int sideMoves{};			/**< Current number of side moves made. */
+	float density{};			/**< Density of the particle in kg/m3. for reference, air density = 1,2 | water = 1000 | sand = 1600 | steam = 0,6 */
 };
