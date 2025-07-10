@@ -11,7 +11,7 @@
  * @param scaling The scaling factor for the window and renderer (default is 1).
  * @return true if initialization is successful, else false,
  */
-bool init(SDL_Window** window, SDL_Renderer** renderer, int screenWidth, int screenHeight, int scaling = 1);
+bool init(SDL_Window** window, SDL_Renderer** renderer, int screenWidth, int screenHeight, int scaling);
 
 /**
  * @brief Destroys the SDL window and renderer, and quits SDL.
