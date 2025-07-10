@@ -54,7 +54,6 @@ void World::swapParticles(Particle* particle1, Particle* particle2) {
 }
 
 bool World::spread(Particle* particle) {
-	//Choose a random direction to go
 	const MovingDirections movingDirection{ std::rand() % 2 == 0 ? LEFT : RIGHT };
 	(*particle).increaseSideMoves();
 
@@ -74,7 +73,6 @@ bool World::spread(Particle* particle) {
 }
 
 bool World::canMove(Particle* particle, MovingDirections direction) {
-	/*Get a particle and a direction and check if there is no neighbor in that direction and its inbounds.*/
 	auto currentPosition{ (*particle).getPosition() };
 	const int x{ currentPosition.first };
 	const int y{ currentPosition.second };
@@ -104,7 +102,6 @@ void World::searchActiveParticles(std::vector<Particle*>& bufferActiveParticles)
 }
 
 bool World::addParticle(Particle* particle) {
-	/*Try to add a particle. Returns true if position was unoccupied.*/
 	auto position{ (*particle).getPosition() };
 
 	if (matrix[position.first][position.second] == nullptr) {
@@ -116,7 +113,7 @@ bool World::addParticle(Particle* particle) {
 	return false;
 }
 
-void World::update() {
+void World::update() {	
 	std::vector<Particle*> activeParticles{};
 	searchActiveParticles(activeParticles);
 
