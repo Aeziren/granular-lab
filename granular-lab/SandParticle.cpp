@@ -9,4 +9,5 @@ SandParticle::SandParticle(int x, int y)
 	color.a = 0xFF;
 	maxSideMoves = 8;
 	density = 1600;
+	type = "sand";
 }
