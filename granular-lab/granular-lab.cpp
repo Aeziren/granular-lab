@@ -3,7 +3,8 @@
 #include <SDL3/SDL.h>
 #include "helpers.h"
 #include "World.h"
-#include "Particle.h"
+#include "SandParticle.h"
+#include "WaterParticle.h"
 #include "Constants.h"
 
 
@@ -26,9 +27,14 @@ int main(int argc, char* argv[]) {
 	bool rightMouseButtonDown{ false };
 
 	while (quit == false) {
-		if (leftMouseButtonDown || rightMouseButtonDown) {
+		if (leftMouseButtonDown) {
 			SDL_GetMouseState(&mouseX, &mouseY);
-			Particle* newParticle = new Particle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING), leftMouseButtonDown ? Particle::SAND : Particle::WATER);
+			SandParticle* newParticle = new SandParticle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING));
+			world.addParticle(newParticle);
+		}
+		if (rightMouseButtonDown) {
+			SDL_GetMouseState(&mouseX, &mouseY);
+			WaterParticle* newParticle = new WaterParticle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING));
 			world.addParticle(newParticle);
 		}
 
