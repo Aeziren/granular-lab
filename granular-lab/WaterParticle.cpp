@@ -12,3 +12,7 @@ WaterParticle::WaterParticle(int x, int y)
 	density = 1000;
 	type = "water";
 }
+
+void WaterParticle::update(World& world) {
+	
+}

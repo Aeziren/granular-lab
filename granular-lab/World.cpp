@@ -115,16 +115,9 @@ bool World::addParticle(Particle* particle) {
 	return false;
 }
 
-void World::update() {	
-	std::vector<Particle*> activeParticles{};
-	searchActiveParticles(activeParticles);
-
-	for (Particle* particle : activeParticles) {
-		if (!applyVerticalForce(particle)) {
-			spread(particle);
-		}
-	}
-};
+std::string_view World::getParticleTypeAt(int x, int y) {	
+	return matrix[x][y]->getElement();
+}
 
 void World::draw(SDL_Renderer* renderer) {
 	for (int y{}; y < SCREEN_HEIGHT; ++y) {

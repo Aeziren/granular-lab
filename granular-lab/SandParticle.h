@@ -5,5 +5,6 @@
 class SandParticle : public Particle {
 public:
 	SandParticle(int x, int y);
+	void update(World& world) override;
 };
 

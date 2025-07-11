@@ -75,9 +75,11 @@ public:
 	bool addParticle(Particle* particle);
 
 	/*
-	* @brief Apply physics on all active particles on the world.
+	* @brief Returns the type of a particle at X and Y coordinates.
+	* @param x, y: Coordinate
+	* @return string_view containing the particle type.
 	*/
-	void update();
+	std::string_view getParticleTypeAt(int x, int y);
 
 	/*
 	* @brief Get a renderer and uses it to draw all particles.

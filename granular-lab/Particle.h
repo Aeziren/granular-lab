@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <utility>
 #include <string>
+#include "World.h"
 
 /*
 * class Particle
@@ -14,6 +15,8 @@ public:
 	* @param x, y: Particle position.
 	*/
 	Particle(int x, int y);
+
+	virtual void update(World& world) = 0;
 
 	/*
 	* @brief Draw the current particle.

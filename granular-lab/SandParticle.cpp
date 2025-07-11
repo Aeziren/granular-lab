@@ -11,3 +11,7 @@ SandParticle::SandParticle(int x, int y)
 	density = 1600;
 	type = "sand";
 }
+
+void SandParticle::update(World& world) {
+
+}
