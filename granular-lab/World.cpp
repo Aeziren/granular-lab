@@ -87,6 +87,8 @@ bool World::canMove(Particle* particle, MovingDirections direction) {
 	case LEFT:
 		return x - 1 >= 0 && matrix[x - 1][y] == nullptr;
 	}
+
+	return false;
 }
 
 void World::searchActiveParticles(std::vector<Particle*>& bufferActiveParticles) {

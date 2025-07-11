@@ -6,7 +6,7 @@ Particle::Particle(int x, int y)
 
 void Particle::draw(SDL_Renderer* renderer) {
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderPoint(renderer, body.x, body.y);
+	SDL_RenderPoint(renderer, static_cast<float>(body.x), static_cast<float>(body.y));
 }
 
 std::pair<int, int> Particle::getPosition() {
