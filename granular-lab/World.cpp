@@ -121,6 +121,15 @@ std::string_view World::getParticleTypeAt(int x, int y) {
 	return matrix[x][y]->getElement();
 }
 
+void World::update() {
+	std::vector<Particle*> activeParticles = {};
+	searchActiveParticles(activeParticles);
+
+	for (Particle* particle : activeParticles) {
+		particle->behave(*this);
+	}
+}
+
 void World::draw(SDL_Renderer* renderer) {
 	for (int y{}; y < SCREEN_HEIGHT; ++y) {
 		for (int x{}; x < SCREEN_WIDTH; ++x) {

@@ -13,6 +13,7 @@
 */
 class World {
 private:
+	// To do: Have an vector with all active particles
 	using MatrixLine = std::vector<Particle*>;
 	enum MovingDirections {
 		UP,
@@ -80,6 +81,8 @@ public:
 	* @return string_view containing the particle type.
 	*/
 	std::string_view getParticleTypeAt(int x, int y);
+
+	void update();
 
 	/*
 	* @brief Get a renderer and uses it to draw all particles.
