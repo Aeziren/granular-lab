@@ -61,7 +61,7 @@ public:
 	* @brief Setup the world matrix based on the SCREEN_WIDTH and SCREEN_HEIGHT constants.
 	*/
 	World();
-
+	
 	/*
 	* @brief Deletes all particle in the current object.
 	*/

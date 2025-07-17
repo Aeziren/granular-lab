@@ -12,6 +12,6 @@ SandParticle::SandParticle(int x, int y)
 	type = "sand";
 }
 
-void SandParticle::update(World& world) {
+void SandParticle::behave(World& world) {
 
 }

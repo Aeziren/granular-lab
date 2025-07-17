@@ -13,6 +13,6 @@ WaterParticle::WaterParticle(int x, int y)
 	type = "water";
 }
 
-void WaterParticle::update(World& world) {
+void WaterParticle::behave(World& world) {
 	
 }

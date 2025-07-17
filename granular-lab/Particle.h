@@ -16,7 +16,7 @@ public:
 	*/
 	Particle(int x, int y);
 
-	virtual void update(World& world) = 0;
+	virtual void behave(World& world) = 0;
 
 	/*
 	* @brief Draw the current particle.

@@ -5,5 +5,5 @@
 class WaterParticle : public Particle {
 public:
 	WaterParticle(int x, int y);
-	void update(World& world) override;
+	void behave(World& world) override;
 };

@@ -115,7 +115,9 @@ bool World::addParticle(Particle* particle) {
 	return false;
 }
 
-std::string_view World::getParticleTypeAt(int x, int y) {	
+std::string_view World::getParticleTypeAt(int x, int y) {
+	if (x < 0 || x > SCREEN_HEIGHT || y < 0 || y > SCREEN_HEIGHT)
+		return nullptr;
 	return matrix[x][y]->getElement();
 }
 
