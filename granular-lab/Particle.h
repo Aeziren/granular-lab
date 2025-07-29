@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <utility>
-#include <string>
+#include <string_view>
 
 /*
 * class Particle
