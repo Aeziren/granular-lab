@@ -11,12 +11,12 @@ World::~World() {
 	}
 }
 
-bool World::applyVerticalForce(Particle* particle) {
-	auto currentPosition{ (*particle).getPosition() };
+bool World::applyVerticalForce(Particle& particle) {
+	auto currentPosition{ particle.getPosition() };
 	const int x{ currentPosition.first };
 	const int y{ currentPosition.second };
 	constexpr double airDensity{ 1.2 };
-	const double particleDensity{ (*particle).getDensity() };
+	const double particleDensity{ particle.getDensity() };
 
 	if (particleDensity > airDensity) {
 		// Fall on air
@@ -24,15 +24,15 @@ bool World::applyVerticalForce(Particle* particle) {
 			return false;
 		// Todo: Intrissically checking twice if matrix[x][y + 1] is nullptr
 		if (canMove(particle, DOWN)) {
-			matrix[x][y + 1] = particle;
+			matrix[x][y + 1] = &particle;
 			matrix[x][y] = nullptr;
-			(*particle).setPosition(x, y + 1);
-			(*particle).resetSideMoves();
+			particle.setPosition(x, y + 1);
+			particle.resetSideMoves();
 			return true;
 		}
-		else if ((*matrix[x][y + 1]).getDensity() < (*particle).getDensity()) { // Todo: Could each particle in world be a reference (&) instead of a pointer?
+		else if ((*matrix[x][y + 1]).getDensity() < particle.getDensity()) { // Todo: Could each particle in world be a reference (&) instead of a pointer?
 			// Below particle that are less dense gets swaped			
-			swapParticles(matrix[x][y + 1], particle);
+			swapParticles(matrix[x][y + 1], &particle);
 		}
 	}
 
@@ -53,7 +53,7 @@ void World::swapParticles(Particle* particle1, Particle* particle2) {
 	(*particle2).resetSideMoves();
 }
 
-bool World::spread(Particle* particle) {
+bool World::spread(Particle& particle) {
 	const MovingDirections movingDirection{ std::rand() % 2 == 0 ? LEFT : RIGHT };
 	particle.increaseSideMoves();
 
@@ -71,8 +71,8 @@ bool World::spread(Particle* particle) {
 	return true;
 }
 
-bool World::canMove(Particle* particle, MovingDirections direction) {
-	auto currentPosition{ (*particle).getPosition() };
+bool World::canMove(Particle& particle, MovingDirections direction) {
+	auto currentPosition{ particle.getPosition() };
 	const int x{ currentPosition.first };
 	const int y{ currentPosition.second };
 
@@ -102,11 +102,11 @@ void World::searchActiveParticles(std::vector<Particle*>& bufferActiveParticles)
 	}
 }
 
-bool World::addParticle(Particle* particle) {
-	auto position{ (*particle).getPosition() };
+bool World::addParticle(Particle& particle) {
+	auto position{ particle.getPosition() };
 
 	if (matrix[position.first][position.second] == nullptr) {
-		matrix[position.first][position.second] = particle;
+		matrix[position.first][position.second] = &particle;
 
 		return true;
 	}
@@ -119,8 +119,8 @@ void World::update() {
 	searchActiveParticles(activeParticles);
 
 	for (Particle* particle : activeParticles) {
-		if (!applyVerticalForce(particle)) {
-			spread(particle);
+		if (!applyVerticalForce(*particle)) {
+			spread(*particle);
 		}
 	}
 };

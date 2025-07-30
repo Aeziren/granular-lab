@@ -30,12 +30,12 @@ int main(int argc, char* argv[]) {
 		if (leftMouseButtonDown) {
 			SDL_GetMouseState(&mouseX, &mouseY);
 			SandParticle* newParticle = new SandParticle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING));
-			world.addParticle(newParticle);
+			world.addParticle(*newParticle);
 		}
 		if (rightMouseButtonDown) {
 			SDL_GetMouseState(&mouseX, &mouseY);
 			WaterParticle* newParticle = new WaterParticle(static_cast<int>(mouseX / SCALING), static_cast<int>(mouseY / SCALING));
-			world.addParticle(newParticle);
+			world.addParticle(*newParticle);
 		}
 
 		while (SDL_PollEvent(&event)) {

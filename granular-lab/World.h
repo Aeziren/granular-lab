@@ -28,7 +28,7 @@ private:
 	* @param particle: Pointer to a particle.
 	* @return true if particle moved, else false.
 	*/
-	bool applyVerticalForce(Particle* particle);
+	bool applyVerticalForce(Particle& particle);
 
 	/*
 	* @brief Swap the position of 2 particles in the world.
@@ -40,7 +40,7 @@ private:
 	* @brief Chooses randomly a horizontal direction to go.
 	* @param particle: Pointer to the particle that will move horizontally.
 	*/
-	bool spread(Particle* particle);
+	bool spread(Particle& particle);
 
 	/*
 	* @brief Get a particle and a direction and check if there is no 
@@ -49,7 +49,7 @@ private:
 	* @param direction: The direction to check if that particle can move.
 	* @return true if particle can move in given direction, else false.
 	*/
-	bool canMove(Particle* particle, MovingDirections direction);
+	bool canMove(Particle& particle, MovingDirections direction);
 
 	/*
 	* @brief Get a buffer. Search on the grid for all active particles and saves them to buffer.
@@ -72,7 +72,7 @@ public:
 	* @param particle: Pointer to the particle to add.
 	* @return true if position was unoccupied, else false.
 	*/
-	bool addParticle(Particle* particle);
+	bool addParticle(Particle& particle);
 
 	/*
 	* @brief Apply physics on all active particles on the world.
