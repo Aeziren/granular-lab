@@ -55,21 +55,20 @@ void World::swapParticles(Particle* particle1, Particle* particle2) {
 
 bool World::spread(Particle* particle) {
 	const MovingDirections movingDirection{ std::rand() % 2 == 0 ? LEFT : RIGHT };
-	(*particle).increaseSideMoves();
+	particle.increaseSideMoves();
 
-	if (canMove(particle, movingDirection) && !(*particle).outOfMoves()) {
-		auto currentPosition{ (*particle).getPosition() };
-		const int x{ currentPosition.first };
-		const int y{ currentPosition.second };
-		const int intDirection{ movingDirection == LEFT ? -1 : 1 };
-		matrix[x + intDirection][y] = particle;
-		matrix[x][y] = nullptr;
-		(*particle).setPosition(x + intDirection, y);
+	if (!canMove(particle, movingDirection) || particle.outOfMoves())
+		return false;
+	
+	auto currentPosition{ particle.getPosition() };
+	const int x{ currentPosition.first };
+	const int y{ currentPosition.second };
+	const int intDirection{ movingDirection == LEFT ? -1 : 1 };
+	matrix[x + intDirection][y] = &particle;
+	matrix[x][y] = nullptr;
+	particle.setPosition(x + intDirection, y);
 
-		return true;
-	}
-
-	return false;
+	return true;
 }
 
 bool World::canMove(Particle* particle, MovingDirections direction) {
