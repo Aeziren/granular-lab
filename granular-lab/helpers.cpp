@@ -1,7 +1,6 @@
 #include "helpers.h"
 #include <iostream>
 
-
 bool init(SDL_Window** window, SDL_Renderer** renderer, int screenWidth, int screenHeight, int scaling = 1) {
 	if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
 		std::cout << "Could not initialize SDL! Error: " << SDL_GetError();

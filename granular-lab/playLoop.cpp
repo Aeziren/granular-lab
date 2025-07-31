@@ -1,8 +1,10 @@
+#include <string>
 #include "playLoop.h"
 #include "World.h"
 #include "SandParticle.h"
 #include "WaterParticle.h"
 #include "Constants.h"
+#include "TextureHandler.h"
 
 
 void playLoop(SDL_Window* window, SDL_Renderer* renderer) {
@@ -13,6 +15,8 @@ void playLoop(SDL_Window* window, SDL_Renderer* renderer) {
 	float mouseY{};
 	bool leftMouseButtonDown{ false };
 	bool rightMouseButtonDown{ false };
+	TextureHandler textureHandler{  };
+	SDL_Texture* sandTexture{  };
 
 	while (quit == false) {
 		if (leftMouseButtonDown) {
