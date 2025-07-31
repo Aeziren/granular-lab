@@ -105,6 +105,9 @@ void World::searchActiveParticles(std::vector<Particle*>& bufferActiveParticles)
 bool World::addParticle(Particle& particle) {
 	auto position{ particle.getPosition() };
 
+	if (position.first < 0 || position.first > SCREEN_HEIGHT || position.second < 0 || position.second > SCREEN_HEIGHT)
+		return false;
+
 	if (matrix[position.first][position.second] == nullptr) {
 		matrix[position.first][position.second] = &particle;
 
