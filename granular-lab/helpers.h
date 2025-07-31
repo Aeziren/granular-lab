@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 
+
 /**
  * @brief Initializes SDL, creates a window and renderer, and sets the render scale.
  *

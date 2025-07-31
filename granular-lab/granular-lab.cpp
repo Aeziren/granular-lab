@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 #include <ctime>
 #include <SDL3/SDL.h>
 #include "helpers.h"

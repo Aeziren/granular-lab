@@ -1,5 +1,6 @@
 #include "SandParticle.h"
 
+
 SandParticle::SandParticle(int x, int y)
     : Particle(x, y) // Call base class constructor with default position
 {

@@ -1,7 +1,7 @@
 #pragma once
-
 #include <vector>
 #include "Particle.h"
+
 
 // Todo: Refactor so this class doesn't break the SRP.
 
