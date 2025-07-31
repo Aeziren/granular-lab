@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <SDL3/SDL.h>
@@ -15,7 +16,12 @@ int main(int argc, char* argv[]) {
 	SDL_Renderer* renderer{};
 	init(&window, &renderer, SCREEN_WIDTH, SCREEN_HEIGHT, SCALING);
 
-	playLoop(window, renderer);
+	try {
+		playLoop(window, renderer);
+	}
+	catch (const std::exception& ex) {
+		std::cout << "Error: " << ex.what() << '\n';
+	}
 
 	// Close
 	close(&window, &renderer);
