@@ -36,10 +36,13 @@
     <ClCompile Include="playLoop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureHandler.cpp">
+    <ClCompile Include="handleEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="handleEvent.cpp">
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,13 +68,16 @@
     <ClInclude Include="playLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="handleEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

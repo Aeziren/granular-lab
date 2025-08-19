@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="granular-lab.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -148,11 +149,12 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="playLoop.cpp" />
     <ClCompile Include="SandParticle.cpp" />
-    <ClCompile Include="TextureHandler.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="WaterParticle.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="handleEvent.h" />
@@ -160,7 +162,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="playLoop.h" />
     <ClInclude Include="SandParticle.h" />
-    <ClInclude Include="TextureHandler.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="WaterParticle.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
