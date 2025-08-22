@@ -6,7 +6,7 @@
 #include "playLoop.h"
 
 
-int main(int argc, char* argv[]) {
+int main() {
 	// Global random seed
 	std::srand(std::time(nullptr));
 
