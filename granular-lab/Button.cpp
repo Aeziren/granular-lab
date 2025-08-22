@@ -9,8 +9,8 @@ Button::Button(const std::string name, const std::string imageLocation, const SD
 	_position(position),
 	_selectedColor(color)
 {
-	_highlightColor = { color.r, color.g, color.b, 180 };
-	_baseColor = { color.r, color.g, color.b, 60 };
+	_highlightColor = { color.r, color.g, color.b, 200 };
+	_baseColor = { color.r, color.g, color.b, 130 };
 }
 
 const SDL_Color Button::getColor(std::string_view chosenMode) {
