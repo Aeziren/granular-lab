@@ -68,8 +68,10 @@ std::vector<Button> UIManager::getJsonButtons(const std::string jsonLocation) {
 	
 	std::vector<Button> resultButtons{};
 	for (const auto& button : config["buttons"]) {
-		SDL_FRect buttonPosition{ button["x"], button["y"], button["width"], button["height"] };
-		Button newButton{ button["name"], button["image"], buttonPosition };
+		const SDL_FRect buttonPosition{ button["x"], button["y"], button["width"], button["height"] };
+		const SDL_Color color{ button["color_r"], button["color_g"], button["color_b"], 255 };	
+
+		Button newButton{ button["name"], button["image"], buttonPosition, color };
 
 		resultButtons.push_back(newButton);
 	}

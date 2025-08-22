@@ -3,11 +3,14 @@
 #include "Button.h"
 
 
-Button::Button(const std::string name, const std::string imageLocation, const SDL_FRect position)
+Button::Button(const std::string name, const std::string imageLocation, const SDL_FRect position, SDL_Color color)
 	: _name(name),
 	_imageLocation(imageLocation),
-	_position(position)
+	_position(position),
+	_selectedColor(color)
 {
+	_highlightColor = { color.r, color.g, color.b, 180 };
+	_baseColor = { color.r, color.g, color.b, 60 };
 }
 
 const SDL_Color Button::getColor(std::string_view chosenMode) {

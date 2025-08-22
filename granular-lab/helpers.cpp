@@ -18,6 +18,8 @@ bool init(SDL_Window** window, SDL_Renderer** renderer, int screenWidth, int scr
 		std::cout << "Could not create renderer! Error: " << SDL_GetError();
 		return false;
 	}
+	SDL_SetRenderDrawBlendMode(*renderer, SDL_BLENDMODE_BLEND);
+
 	if (SDL_SetRenderScale(*renderer, scaling, scaling) == false) {
 		std::cout << "Could not set scale! Error: " << SDL_GetError();
 		return false;

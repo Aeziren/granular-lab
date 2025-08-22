@@ -12,7 +12,7 @@ private:
 
 public:
 	bool selected{ false };
-	Button(const std::string name, const std::string imageLocation, const SDL_FRect position);
+	Button(const std::string name, const std::string imageLocation, const SDL_FRect position, SDL_Color color);
 
 	const SDL_Color getColor(std::string_view chosenMode);
 
