@@ -2,8 +2,11 @@
 #include <stdexcept>
 #include "Button.h"
 
-Button::Button(const SDL_FRect position)
-	: _position(position)
+
+Button::Button(const std::string name, const std::string imageLocation, const SDL_FRect position)
+	: _name(name),
+	_imageLocation(imageLocation),
+	_position(position)
 {
 }
 
