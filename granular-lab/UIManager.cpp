@@ -50,6 +50,8 @@ void UIManager::ManageButtons() {
 			_buttons[i].selected = (i == clickedButtonIndex);
 		}
 	}
+
+	// TO DO: Change the GameState object so it update the current selected element.
 }
 
 std::vector<Button> UIManager::getJsonButtons(const std::string jsonLocation) {
