@@ -33,17 +33,15 @@ https://github.com/user-attachments/assets/f8860473-ed42-4262-8bdb-a21cfc54a50b
 - `Particle` class: Represents each particle, with its type, density, color, and movement behavior  
 - `World` class: Holds and updates the grid of particles
 
-## Known Limitations that will be fixed soon  
-- Water behavior can still be improved  
-- No optimization or performance throttling  
-- Only sand and water types are implemented
-
 ## Ideas for Future Improvements
 
 - Add more elements (steam, fire, oil, etc.)  
 - Use a particle pool instead of raw pointers to manage memory  
 - Improve the water physics for better horizontal flow  
 - Add UI to switch particle types and pause/resume
+- Water behavior can still be improved  
+- No optimization or performance throttling  
+- Only sand and water types are implemented
 
 ## License
 
